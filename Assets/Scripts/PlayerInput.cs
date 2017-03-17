@@ -1,42 +1,103 @@
-﻿using UnityEngine;
-using System.Collections;
+﻿using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+
+public class ButtonState {
+    public bool value;
+    public float holdTime = 0;
+}
+
+public enum Buttons {
+    TouchJump,
+    TouchShoot,
+    TouchShadow
+}
+
+public enum Condition {
+    GreaterThan,
+    LessThan
+}
 
 public class PlayerInput : MonoBehaviour {
 
-	public float speed;
-	private float minX, minY, maxX, maxY;
-	private GameObject gameMasterObject;
-	private GameMaster gameMaster;
+    private Dictionary<Buttons, ButtonState> buttonStates = new Dictionary<Buttons, ButtonState>();
+    private Rigidbody2D body2D = new Rigidbody2D();
+    private GameObject player;
 
-	void Awake (){
-		gameMasterObject = GameObject.FindGameObjectWithTag ("GameMaster");
-		gameMaster = gameMasterObject.GetComponent<GameMaster> ();
-	}
+    public float absVelY = 0f;
+    public InputAxisState[] inputs;
+
+
+    private void Awake() {
+        player = GameObject.FindGameObjectWithTag("Player");
+        body2D = player.GetComponent<Rigidbody2D>();
+    }
 	
 	// Update is called once per frame
 	void Update () {
-		float x = Input.GetAxisRaw ("Horizontal");
-		float y = Input.GetAxisRaw ("Vertical");
+        foreach (var input in inputs) {
+            SetButtonValue(input.button, input.value);
+        }
+    }
 
-		Vector2 direction = new Vector2 (x, y).normalized;
+    void FixedUpdate() {
+        absVelY = Mathf.Abs(body2D.velocity.y);
+    }
 
-		Move (direction);
-	}
+    public void SetButtonValue(Buttons key, bool value) {
+        if (!buttonStates.ContainsKey(key))
+            buttonStates.Add(key, new ButtonState());
 
-	void Move(Vector2 direction){
+        // Set the button state value associated with the given button state key
+        var state = buttonStates[key];
 
-		minX = gameMaster.minX;
-		minY = gameMaster.minY;
-		maxX = gameMaster.maxX;
-		maxY = gameMaster.maxY;
+        if (state.value && !value) {
+            // if the button state is true but the button value coming in is false, the button must be released
+            state.holdTime = 0;
+        }
+        else if (state.value && value) {
+            // if the button state is true and the button value coming in is also true, the button is still pressed
+            state.holdTime += Time.deltaTime;
+        }
 
-		Vector2 pos = transform.position;
+        state.value = value;
+    }
 
-		pos += direction * speed * Time.deltaTime;
+    public bool GetButtonValue(Buttons key) {
+        if (buttonStates.ContainsKey(key))
+            return buttonStates[key].value;
+        else
+            return false;
+    }
 
-		pos.x = Mathf.Clamp (pos.x, minX, maxX);
-		pos.y = Mathf.Clamp (pos.y, minY, maxY);
+    public float GetButtonHoldTime(Buttons key) {
+        if (buttonStates.ContainsKey(key))
+            return buttonStates[key].holdTime;
+        else
+            return 0;
+    }
+}
 
-		transform.position = pos;
-	}
+// The System.Serializable allows unity ide to present the properties of the class
+// for a given game object using this class
+[System.Serializable]
+public class InputAxisState {
+    public string axisName;
+    public float offValue;
+    public Buttons button;
+    public Condition condition;
+
+    public bool value {
+        get {
+            var val = Input.GetAxis(axisName);
+
+            switch (condition) {
+                case Condition.GreaterThan:
+                    return val > offValue;
+                case Condition.LessThan:
+                    return val < offValue;
+            }
+            return false;
+        }
+    }
 }
