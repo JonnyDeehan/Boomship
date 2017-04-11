@@ -26,9 +26,16 @@ public class EnemyShoot : MonoBehaviour {
 		pos.x += transform.position.x;
 		pos.y += transform.position.y;
 
-		var projectileClone = Instantiate (projectilePrefab,transform.position,Quaternion.identity);
-		Physics2D.IgnoreCollision(projectileClone.GetComponent<Collider2D>(), GetComponent<Collider2D>());
-		projectileClone.transform.localScale = transform.localScale;
+		var player = GameObject.FindGameObjectWithTag ("Player");
+
+		if(player != null){
+			var projectileClone = Instantiate (projectilePrefab,transform.position,Quaternion.identity);
+			Physics2D.IgnoreCollision(projectileClone.GetComponent<Collider2D>(), GetComponent<Collider2D>());
+			projectileClone.transform.localScale = transform.localScale;
+			var direction = player.transform.position - projectileClone.transform.position;
+			projectileClone.GetComponent<EnemyProjectile> ().SetDirectionToPlayer (direction);
+		}
+
 
 		yield return new WaitForSeconds (shootDelay);
 

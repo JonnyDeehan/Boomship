@@ -12,32 +12,57 @@ public enum Stage {
 
 public class EventManager : MonoBehaviour {
 
+	public GameObject enemyManagerPrefab;
+	public GameObject asteroidManagerPrefab;
+	public GameObject itemManagerPrefab;
+
+	private GameObject enemyManagerObj;
+	private GameObject asteroidManagerObj;
+	private GameObject itemManagerGameObj;
 	private Stage stage;
 	private float stageTime;
 	private bool didStartCountDown;
 	private GameMaster gameMaster;
 	private AsteroidManager asteroidManager;
+	private EnemyManager enemyManager;
+	private ItemManager itemManager;
+	private GameMode gameMode;
 
 	void Awake(){
+		
 		gameMaster = GameObject.FindGameObjectWithTag ("GameMaster").GetComponent<GameMaster> ();
-		asteroidManager = GameObject.FindGameObjectWithTag ("AsteroidManager").GetComponent<AsteroidManager> ();
+		gameMode = gameMaster.GetGameMode ();
+			
+		enemyManagerObj = Instantiate (enemyManagerPrefab);
+		StartCoroutine(InstantiateWithDelay (asteroidManagerObj));
+		itemManagerGameObj = Instantiate (itemManagerPrefab);
+	
+		enemyManager = enemyManagerObj.GetComponent<EnemyManager> ();
+		itemManager = itemManagerGameObj.GetComponent<ItemManager> ();
+
 	}
 
 	// Use this for initialization
 	void Start () {
-		stage = Stage.First;
+		stage = gameMode.stage;
 		stageTime = 30f;
 		didStartCountDown = false;
-		StartCoroutine(CountDownStage());
-		asteroidManager.UpdateAsteroid (stage);
+		enemyManager.UpdateSpawnDelay (gameMode.enemySpawnDelay);
 	}
 	
 	// Update is called once per frame
 	void Update () {
 
-		if (!didStartCountDown && !gameMaster.playerDead) {
+		var gameState = gameMaster.GetGameState ();
+
+		if (!didStartCountDown && !gameMaster.playerDead 
+			&& (gameState == GameState.Gameplay) && (stage != Stage.Indefinite)) {
 			didStartCountDown = true;
 			StartCoroutine(CountDownStage());
+		}
+
+		if (gameState == GameState.GameOver) {
+			stage = gameMode.stage;
 		}
 	}
 
@@ -49,16 +74,30 @@ public class EventManager : MonoBehaviour {
 		}
 	}
 
+	IEnumerator InstantiateWithDelay(GameObject manager){
+		yield return new WaitForSeconds (gameMode.asteroidSpawnDelay / 2);
+
+		asteroidManagerObj = Instantiate (asteroidManagerPrefab);
+		asteroidManager = asteroidManagerObj.GetComponent<AsteroidManager> ();
+		asteroidManager.UpdateAsteroid (stage);
+	}
+
 	void UpdateStage(){
 		if (stage == Stage.First) {
 			stage = Stage.Second;
+			// Update asteroid manager and enemy manager (and items)
 			asteroidManager.UpdateAsteroid (stage);
+			enemyManager.UpdateSpawnDelay (4f);
 		} else if (stage == Stage.Second) {
+			// Update asteroid manager and enemy manager (and items)
 			stage = Stage.Third;
 			asteroidManager.UpdateAsteroid (stage);
+			enemyManager.UpdateSpawnDelay (3f);
 		} else if (stage == Stage.Third) {
+			// Update asteroid manager and enemy manager (and items)
 			stage = Stage.Indefinite;
 			asteroidManager.UpdateAsteroid (stage);
+			enemyManager.UpdateSpawnDelay (2f);
 		}
 		didStartCountDown = false;
 	}
@@ -69,5 +108,12 @@ public class EventManager : MonoBehaviour {
 
 	public void SetStage(Stage resetStage){
 		this.stage = resetStage;
+	}
+
+	public void DestroyManagers(){
+		Destroy (enemyManagerObj);
+		Destroy (asteroidManagerObj);
+		Destroy (itemManagerGameObj);
+		Destroy (gameObject);
 	}
 }

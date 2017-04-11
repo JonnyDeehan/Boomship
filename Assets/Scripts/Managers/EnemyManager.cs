@@ -10,7 +10,7 @@ public class EnemyManager : MonoBehaviour {
 	private EventManager eventManager;
 
 	void Awake(){
-		eventManager = GameObject.FindGameObjectWithTag ("EventManager").GetComponent<EventManager> ();
+		eventManager = GameObject.FindGameObjectWithTag("EventManager").GetComponent<EventManager> ();
 	}
 	
 	// Update is called once per frame
@@ -29,5 +29,9 @@ public class EnemyManager : MonoBehaviour {
 
 		yield return new WaitForSeconds (spawnDelay);
 		canSpawn = true;
+	}
+
+	public void UpdateSpawnDelay(float delay){
+		this.spawnDelay = delay;
 	}
 }

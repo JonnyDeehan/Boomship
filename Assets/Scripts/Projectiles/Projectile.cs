@@ -10,7 +10,7 @@ public abstract class Projectile : MonoBehaviour {
 	private static float MAXX = 20f;
 	protected GameMaster gameMaster;
 	protected string targetTag;
-	private int killEnemyScore = 1;
+	private int killEnemyScore = 20;
 	private PlayerHealth health;
 	private float projectileDamage = 20f;
 
@@ -21,6 +21,7 @@ public abstract class Projectile : MonoBehaviour {
 
 	// Use this for initialization
 	protected virtual void Start () {
+
 		var startVelX = initialVelocity.x * transform.localScale.x; 
 		var startVelY = initialVelocity.y * transform.localScale.y;
 
@@ -43,10 +44,10 @@ public abstract class Projectile : MonoBehaviour {
 				health = target.gameObject.GetComponent<PlayerHealth>();
 				health.TakeDamage (projectileDamage);
 			} else if(targetTag == "Enemy") {
+				gameMaster.IncrementScore (killEnemyScore);
 				Destroy (target.gameObject);
 			}
 		}
 		Destroy (gameObject);
-		gameMaster.IncrementScore (killEnemyScore);
 	}
 }

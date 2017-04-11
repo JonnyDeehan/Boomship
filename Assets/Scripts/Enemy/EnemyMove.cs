@@ -6,11 +6,9 @@ public class EnemyMove : MonoBehaviour {
 
 	public float speed = -10f;
 
-	private float minX = -10f;
-	private float maxX = 20f;
 	private int enemyLayer = 12;
 	private int asteroidLayer = 13;
-	private int enemyKillScore = 2;
+	private int enemyKillScore = 20;
 	private Rigidbody2D body2d;
 	private GameMaster gameMaster;
 
@@ -25,8 +23,11 @@ public class EnemyMove : MonoBehaviour {
 		var vel = body2d.velocity;
 		body2d.velocity = new Vector2(speed, vel.y);
 
+		Vector2 min = Camera.main.ViewportToWorldPoint (new Vector2 (0, 0));
+		Vector2 max = Camera.main.ViewportToWorldPoint (new Vector2 (1, 1));
+
 		var enemyPosition = transform.position;
-		if (enemyPosition.x < minX || enemyPosition.x > maxX) {
+		if (enemyPosition.x < min.x) {
 			Destroy (gameObject);
 		}
 	}
@@ -46,7 +47,6 @@ public class EnemyMove : MonoBehaviour {
 	void OnCollision(){
 		// Explode Animation
 		gameMaster.ExplodeAnimation(gameObject);
-		gameMaster.IncrementScore (enemyKillScore);
 		gameMaster.SpawnGem (gameObject);
 		Destroy (gameObject);
 	}

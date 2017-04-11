@@ -5,7 +5,7 @@ using UnityEngine;
 public class PlayerManager : MonoBehaviour {
 
 //	public Animation anim;
-//	public AudioSource[] audio;
+	public AudioSource[] audio;
 
 	private PlayerHealth playerHealth;
 
@@ -16,28 +16,40 @@ public class PlayerManager : MonoBehaviour {
 
 	private GameObject player;
 	private PlayerState playerState;
+	private GameState gameState;
+	private GameMaster gameMaster;
+	private Animator playerAnimator;
 
 	void Awake () {
-		FindPlayer ();
+		gameMaster = GameObject.FindGameObjectWithTag ("GameMaster").GetComponent<GameMaster> ();
 		playerState = PlayerState.Normal;
-		playerHealth = player.GetComponent<PlayerHealth> ();
 	}
 	
 	// Update is called once per frame
 	void Update () {
-		if (player = null)
+		if ((player = null) && (gameMaster.GetGameState() == GameState.Gameplay)) {
 			FindPlayer ();
+		}
 
-		if (playerState.Equals(PlayerState.Shadow)) {
-			// Change animation for shadow
-		} else {
-			// have normal animation
+		if (player != null) {
+
+			if (playerState == PlayerState.Normal) {
+				playerAnimator.SetBool ("Shadow", false);
+			}
+
+			if (playerState == PlayerState.Shadow) {
+				playerAnimator.SetBool ("Shadow", true);
+			}
+
 		}
 	}
 
 	// Shadow state for 5 seconds, revert back to normal state
 	IEnumerator ShadowDuration(){
+		audio [0].Play ();
+		Debug.Log ("ShadowForm");
 		yield return new WaitForSeconds (5f);
+		Debug.Log ("NormalForm");
 		playerState = PlayerState.Normal;
 	}
 
@@ -52,5 +64,9 @@ public class PlayerManager : MonoBehaviour {
 
 	private void FindPlayer(){
 		player = GameObject.FindGameObjectWithTag ("Player");
+		if (player != null) {
+			playerHealth = player.GetComponent<PlayerHealth> ();
+			playerAnimator = player.GetComponent<Animator> ();
+		}
 	}
 }

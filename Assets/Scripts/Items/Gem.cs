@@ -6,7 +6,6 @@ public class Gem : Collectable {
 	
 	float originalY;
 	private float destroyDelay = .3f;
-	public float floatStrength = 4f; 
 	public float speed = -10f;
 	private float minX = -10f;
 	private float maxX = 20f;
@@ -44,11 +43,6 @@ public class Gem : Collectable {
 		if (gemPosition.x < minX || gemPosition.x > maxX) {
 			Destroy (gameObject);
 		}
-
-//		// Floating the coin up and down
-//		transform.position = new Vector3(transform.position.x,
-//			originalY + ((float)Mathf.Sin(Time.time) * floatStrength),
-//			transform.position.z);
 
 	}
 }

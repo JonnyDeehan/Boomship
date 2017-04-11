@@ -6,18 +6,13 @@ public class ItemManager : MonoBehaviour {
 
 	// ======= Spawn Items =======
 
-	private float spawnDelay = 4f;
+	private float spawnDelay = 8f;
 	private bool canSpawn = true;
 	private GameMaster gameMaster;
 	public GameObject item_type1;
 
 	void Awake(){
-		gameMaster = GameMaster.gameMaster;
-	}
-
-	// Use this for initialization
-	void Start () {
-		
+		gameMaster = GameObject.FindGameObjectWithTag ("GameMaster").GetComponent<GameMaster> ();
 	}
 	
 	// Update is called once per frame

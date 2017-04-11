@@ -4,10 +4,9 @@ using UnityEngine;
 
 [System.Serializable]
 public class Asteroid {
-
 	public GameObject asteroid;
 	public float spawnDelay;
-
+	public float asteroidHP;
 }
 
 public class AsteroidManager : MonoBehaviour {
@@ -19,11 +18,15 @@ public class AsteroidManager : MonoBehaviour {
 	private GameMaster gameMaster;
 
 	void Awake(){
-		gameMaster = GameMaster.gameMaster;
+		gameMaster = GameObject.FindGameObjectWithTag ("GameMaster").GetComponent<GameMaster> ();
 	}
 
 	void Start(){
-		currentAsteroid = asteroids [0];
+		if (gameMaster.CurrentStage() == Stage.First) {
+			currentAsteroid = asteroids [0];
+		} else if (gameMaster.CurrentStage() == Stage.Indefinite) {
+			currentAsteroid = asteroids [2];
+		}
 	}
 
 	public void UpdateAsteroid(Stage stage){
@@ -56,4 +59,9 @@ public class AsteroidManager : MonoBehaviour {
 		yield return new WaitForSeconds (currentAsteroid.spawnDelay);
 		canSpawn = true;
 	}
+
+	public Asteroid GetCurrentAsteroid(){
+		return currentAsteroid;
+	}
+		
 }

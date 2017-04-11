@@ -5,8 +5,6 @@ using UnityEngine;
 public class AsteroidMove : MonoBehaviour {
 
 	public float speed = -10f;
-	private float minX = -10f;
-	private float maxX = 20f;
 	private GameMaster gameMaster;
 
 	private Rigidbody2D body2d;
@@ -21,8 +19,11 @@ public class AsteroidMove : MonoBehaviour {
 		var vel = body2d.velocity;
 		body2d.velocity = new Vector2(speed, vel.y);
 
+		Vector2 min = Camera.main.ViewportToWorldPoint (new Vector2 (0, 0));
+		Vector2 max = Camera.main.ViewportToWorldPoint (new Vector2 (1, 1));
+
 		var asteroidPosition = transform.position;
-		if (asteroidPosition.x < minX || asteroidPosition.x > maxX) {
+		if (asteroidPosition.x < min.x) {
 			Destroy (gameObject);
 		}
 	}
