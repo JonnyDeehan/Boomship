@@ -33,13 +33,4 @@ public class AsteroidMove : MonoBehaviour {
 			Destroy (gameObject);
 		}
 	}
-
-	void OnTriggerEnter2D(Collider2D target){
-		if (target.gameObject.tag == "PlayerProjectile") {
-			// Explode Animation
-			gameMaster.ExplodeAnimation(gameObject);
-			gameMaster.SpawnGem (gameObject);
-			Destroy (gameObject);
-		}
-	}
 }

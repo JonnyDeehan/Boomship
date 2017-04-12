@@ -12,18 +12,24 @@ public class GameMaster : MonoBehaviour {
 	public GameObject gemPrefab;
 	public GameObject eventManagerPrefab;
 
-	// Event Manager
+	//	Managers
 	private GameObject eventManagerObj;
 	private EventManager eventManager;
+	private AudioManager audioManager;
 
 	// UI
 	public Sprite[] livesImages;
 	public Sprite[] healthBarImages;
 	public Sprite[] pausePlayImages;
 	public Sprite[] gameModeImages;
+	public Sprite[] blastMeterImages;
+	public Sprite[] stageImages;
 	private Image Healthbar;
 	private Image LivesImage;
 	private Image pausePlayImage;
+	private Image blastMeterImage;
+	private Image stageTransitionImage;
+	private Image titleImage;
 	private Transform HealthBarObj;
 	private Transform LivesObj;
 	private Transform PlayButton;
@@ -32,6 +38,10 @@ public class GameMaster : MonoBehaviour {
 	private Transform GameModeObj;
 	private Transform pausePlayObj;
 	private Transform MainMenuObj;
+	private Transform BlastMeterObj;
+	private Transform StageObj;
+	private Transform TitleObj;
+	private Transform ScoreTitleObj;
 	private Text scoreTextUI;
 	private Dropdown gameModeSelection;
 
@@ -48,10 +58,12 @@ public class GameMaster : MonoBehaviour {
 	private bool commencingRespawn;
 	private bool gameOver;
 	public bool playerDead;
+	private bool mainMenu;
 
 	// Player related
 	private GameObject player;
 	private PlayerHealth playerHealth;
+	private PlayerShoot playerShoot;
 
 
 	void Awake(){
@@ -70,6 +82,13 @@ public class GameMaster : MonoBehaviour {
 		pausePlayObj = GameObject.Find ("Main Camera").transform.FindChild ("Canvas").FindChild ("PausePlay");
 		pausePlayImage = pausePlayObj.GetComponent<Image> ();
 		MainMenuObj = GameObject.Find ("Main Camera").transform.FindChild ("Canvas").FindChild ("MainMenu");
+		BlastMeterObj = GameObject.Find ("Main Camera").transform.FindChild ("Canvas").FindChild ("BlastMeter");
+		blastMeterImage = BlastMeterObj.GetComponent<Image> ();
+		StageObj = GameObject.Find ("Main Camera").transform.FindChild ("Canvas").FindChild ("Stage");
+		stageTransitionImage = StageObj.GetComponent<Image> ();
+		TitleObj = GameObject.Find ("Main Camera").transform.FindChild ("Canvas").FindChild ("BoomshipTitle");
+		titleImage = TitleObj.GetComponent<Image> ();
+		ScoreTitleObj = GameObject.Find ("Main Camera").transform.FindChild ("Canvas").FindChild ("ScoreTitle");
 
 		if (gameMaster == null) {
 			gameMaster = GameObject.FindGameObjectWithTag ("GameMaster")
@@ -78,10 +97,13 @@ public class GameMaster : MonoBehaviour {
 		if (player == null) {
 			FindPlayer ();
 		}
+
+		audioManager = GameObject.FindGameObjectWithTag ("AudioManager").GetComponent<AudioManager> ();
 	}
 
 	// Use this for initialization
 	void Start () {
+		mainMenu = true;
 		gemCount = 0;
 		score = 0;
 		playerDead = false;
@@ -114,6 +136,47 @@ public class GameMaster : MonoBehaviour {
 			LivesImage.sprite = livesImages [2];
 		} else if (lives == 0) {
 			LivesImage.sprite = livesImages [3];
+		}
+
+		if (eventManager != null && !mainMenu) {
+			if (eventManager.StageEntry) {
+				StageObj.gameObject.SetActive (true);
+				if (CurrentStage () == Stage.First) {
+					stageTransitionImage.sprite = stageImages [0];
+				} else if (CurrentStage () == Stage.Second) {
+					stageTransitionImage.sprite = stageImages [1];
+				} else if (CurrentStage () == Stage.Third) {
+					stageTransitionImage.sprite = stageImages [2];
+				} else if (CurrentStage () == Stage.Indefinite) {
+					// IMPLEMENT INFINITE STAGE ICON
+				}
+			} else {
+				StageObj.gameObject.SetActive (false);
+			}
+		}
+
+		if (BlastMeterObj != null && player != null) {
+			if (playerShoot.Ammo == 9f) {
+				blastMeterImage.sprite = blastMeterImages [0];
+			} else if (playerShoot.Ammo == 8f) {
+				blastMeterImage.sprite = blastMeterImages [1];
+			} else if (playerShoot.Ammo == 7f) {
+				blastMeterImage.sprite = blastMeterImages [2];
+			} else if (playerShoot.Ammo == 6f) {
+				blastMeterImage.sprite = blastMeterImages [3];
+			} else if (playerShoot.Ammo == 5f) {
+				blastMeterImage.sprite = blastMeterImages [4];
+			} else if (playerShoot.Ammo == 4f) {
+				blastMeterImage.sprite = blastMeterImages [5];
+			} else if (playerShoot.Ammo == 3f) {
+				blastMeterImage.sprite = blastMeterImages [6];
+			} else if (playerShoot.Ammo == 2f) {
+				blastMeterImage.sprite = blastMeterImages [7];
+			} else if (playerShoot.Ammo == 1f) {
+				blastMeterImage.sprite = blastMeterImages [8];
+			} else if (playerShoot.Ammo == 0f) {
+				blastMeterImage.sprite = blastMeterImages [9];
+			}
 		}
 
 		if (player != null) {
@@ -160,29 +223,34 @@ public class GameMaster : MonoBehaviour {
 		PlayButton.gameObject.SetActive (true);
 		pausePlayObj.gameObject.SetActive (false);
 		GameModeObj.gameObject.SetActive (true);
+		BlastMeterObj.gameObject.SetActive (false);
 	}
 
 	public void StartGame(){
-
+		audioManager.PlayAudio ("Select");
+		mainMenu = false;
 		var selectedMode = gameModeSelection.captionText.text;
 		gameMode = new GameMode();
 		// Default selection is standard
 		if (selectedMode == "Standard") {
 			// set game mode to standard
-			gameMode.init (Stage.First, 4f, 4f);
+			gameMode.init (Stage.First, 4f, 4f, 8f);
 		} else if (selectedMode == "Infinite") {
 			// set mode to infinite 
 			GameModeObj.GetComponent<Image>().sprite = gameModeImages[1];
-			gameMode.init(Stage.Indefinite, 2f, 2f);
+			gameMode.init(Stage.Indefinite, 2f, 2f, 6f);
 		}
 		
 		// Activate/deactive necessary UI components
+		TitleObj.gameObject.SetActive(false);
 		PlayButton.gameObject.SetActive(false);
 		HealthBarObj.gameObject.SetActive (true);
 		LivesObj.gameObject.SetActive (true);
 		ScoreObj.gameObject.SetActive (true);
+		ScoreTitleObj.gameObject.SetActive (true);
 		GameModeObj.gameObject.SetActive (false);
 		pausePlayObj.gameObject.SetActive (true);
+		BlastMeterObj.gameObject.SetActive (true);
 
 		// Instantiate EventManager
 		eventManagerObj = Instantiate(eventManagerPrefab);
@@ -195,6 +263,7 @@ public class GameMaster : MonoBehaviour {
 	}
 
 	public void PauseGame(){
+		audioManager.PlayAudio ("Select");
 		if (!pauseGame) {
 			MainMenuObj.gameObject.SetActive (true);
 			pauseGame = true;
@@ -209,6 +278,13 @@ public class GameMaster : MonoBehaviour {
 	}
 
 	public void MainMenu(){
+		mainMenu = true;
+		TitleObj.gameObject.SetActive(true);
+		StageObj.gameObject.SetActive (false);
+		LivesObj.gameObject.SetActive (false);
+		HealthBarObj.gameObject.SetActive (false);
+		ScoreTitleObj.gameObject.SetActive (false);
+		ScoreObj.gameObject.SetActive (false);
 		gameState = GameState.GameOver;
 		eventManager.DestroyManagers ();
 		if (GameObject.FindGameObjectWithTag ("Enemy") != null) {
@@ -226,6 +302,7 @@ public class GameMaster : MonoBehaviour {
 		pausePlayObj.gameObject.SetActive (false);
 		ScoreObj.gameObject.SetActive (false);
 		GameModeObj.gameObject.SetActive (true);
+		BlastMeterObj.gameObject.SetActive (false);
 	}
 
 	// ======= Player Related Methods ======
@@ -234,6 +311,7 @@ public class GameMaster : MonoBehaviour {
 		player = GameObject.FindGameObjectWithTag ("Player");
 		if (player != null) {
 			playerHealth = player.GetComponent<PlayerHealth> ();
+			playerShoot = player.GetComponent<PlayerShoot> ();
 		}
 	}
 
@@ -282,6 +360,7 @@ public class GameMaster : MonoBehaviour {
 
 	public void IncrementGemCount(int value){
 		this.gemCount += value;
+		audioManager.PlayAudio ("Gem");
 	}
 
 	public void IncrementScore(int value){
@@ -313,6 +392,7 @@ public class GameMaster : MonoBehaviour {
 	}
 
 	public void ExplodeAnimation(GameObject target){
+		audioManager.PlayAudio ("Explosion");
 		var explosion = Instantiate (explosionPrefab,target.transform.position,Quaternion.identity);
 	}
 		
@@ -343,11 +423,13 @@ public class GameMode {
 	public Stage stage;
 	public float enemySpawnDelay;
 	public float asteroidSpawnDelay;
+	public float itemSpawnDelay;
 
 	// Init() method to set these conditions
-	public void init(Stage stage, float enemySD, float asteroidSD){
+	public void init(Stage stage, float enemySD, float asteroidSD, float itemSD){
 		this.stage = stage;
 		this.enemySpawnDelay = enemySD;
 		this.asteroidSpawnDelay = asteroidSD;
+		this.itemSpawnDelay = itemSD;
 	}
 }

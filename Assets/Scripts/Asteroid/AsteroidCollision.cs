@@ -5,6 +5,7 @@ using UnityEngine;
 public class AsteroidCollision : MonoBehaviour {
 
 	private GameMaster gameMaster;
+	private AudioManager audioManager;
 	private AsteroidManager manager;
 	private Asteroid asteroid;
 	private float asteroidHP;
@@ -13,6 +14,7 @@ public class AsteroidCollision : MonoBehaviour {
 		gameMaster = GameObject.FindGameObjectWithTag ("GameMaster").GetComponent<GameMaster> ();
 		manager = GameObject.FindGameObjectWithTag ("AsteroidManager").GetComponent<AsteroidManager> ();
 		asteroid = manager.GetCurrentAsteroid ();
+		audioManager = GameObject.FindGameObjectWithTag ("AudioManager").GetComponent<AudioManager>();
 	}
 
 	void Start(){
@@ -29,7 +31,8 @@ public class AsteroidCollision : MonoBehaviour {
 		if (target.gameObject.tag == "PlayerProjectile") {
 			// Explode Animation
 			asteroidHP--;
-			if (asteroidHP < 0) {
+			audioManager.PlayAudio ("Hit");
+			if (asteroidHP < 1f) {
 				gameMaster.ExplodeAnimation (gameObject);
 				gameMaster.SpawnGem (gameObject);
 				Destroy (gameObject);

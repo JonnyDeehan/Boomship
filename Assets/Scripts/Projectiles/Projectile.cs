@@ -45,7 +45,7 @@ public abstract class Projectile : MonoBehaviour {
 				health.TakeDamage (projectileDamage);
 			} else if(targetTag == "Enemy") {
 				gameMaster.IncrementScore (killEnemyScore);
-				Destroy (target.gameObject);
+//				Destroy (target.gameObject);
 			}
 		}
 		Destroy (gameObject);

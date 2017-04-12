@@ -50,10 +50,12 @@
      <Compile Include="Assets\Scripts\Asteroid\AsteroidMove.cs" />
      <Compile Include="Assets\Scripts\Asteroid\Explosion.cs" />
      <Compile Include="Assets\Scripts\Background\Star.cs" />
+     <Compile Include="Assets\Scripts\Enemy\EnemyCollision.cs" />
      <Compile Include="Assets\Scripts\Enemy\EnemyMove.cs" />
      <Compile Include="Assets\Scripts\Enemy\EnemyShoot.cs" />
      <Compile Include="Assets\Scripts\Items\Collectable.cs" />
      <Compile Include="Assets\Scripts\Items\Gem.cs" />
+     <Compile Include="Assets\Scripts\Items\HP.cs" />
      <Compile Include="Assets\Scripts\Managers\AsteroidManager.cs" />
      <Compile Include="Assets\Scripts\Managers\AudioManager.cs" />
      <Compile Include="Assets\Scripts\Managers\EnemyManager.cs" />

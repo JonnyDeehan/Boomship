@@ -6,16 +6,11 @@ public class EnemyMove : MonoBehaviour {
 
 	public float speed = -10f;
 
-	private int enemyLayer = 12;
-	private int asteroidLayer = 13;
 	private int enemyKillScore = 20;
 	private Rigidbody2D body2d;
-	private GameMaster gameMaster;
 
 	void Awake () {
 		body2d = GetComponent<Rigidbody2D>();
-		Physics2D.IgnoreLayerCollision (enemyLayer, asteroidLayer);
-		gameMaster = GameObject.FindGameObjectWithTag ("GameMaster").GetComponent<GameMaster> ();
 	}
 	
 	// Update is called once per frame
@@ -30,24 +25,5 @@ public class EnemyMove : MonoBehaviour {
 		if (enemyPosition.x < min.x) {
 			Destroy (gameObject);
 		}
-	}
-
-	void OnTriggerEnter2D(Collider2D target){
-		if (target.gameObject.tag == "PlayerProjectile") {
-			OnCollision();
-		}
-	}
-
-	void OnCollisionEnter2D(Collision2D target){
-		if (target.gameObject.tag == "Player") {
-			OnCollision();
-		}
-	}
-
-	void OnCollision(){
-		// Explode Animation
-		gameMaster.ExplodeAnimation(gameObject);
-		gameMaster.SpawnGem (gameObject);
-		Destroy (gameObject);
 	}
 }

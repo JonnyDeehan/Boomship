@@ -5,6 +5,7 @@ using UnityEngine;
 public class EnemyManager : MonoBehaviour {
 
 	public GameObject enemy;
+	public float[] spawnPositions;
 	private float spawnDelay = 4f;
 	private bool canSpawn = true;
 	private EventManager eventManager;
@@ -15,8 +16,8 @@ public class EnemyManager : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-		if (canSpawn) {
-			var spawnPosition = new Vector2(10f,Random.Range (min: -4f, max: 4f));
+		if (canSpawn && !eventManager.StageEntry) {
+			var spawnPosition = new Vector2(10f,spawnPositions[Random.Range(min:0, max:5)]);
 			StartCoroutine (SpawnEnemy (spawnPosition));
 			canSpawn = false;
 		}

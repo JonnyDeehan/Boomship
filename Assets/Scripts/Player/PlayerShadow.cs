@@ -17,7 +17,14 @@ public class PlayerShadow : PlayerAction {
 
 		if (shadow && (state == PlayerManager.PlayerState.Normal)) {
 			playerManager.SetPlayerState (PlayerManager.PlayerState.Shadow);
+			StartCoroutine (ShadowImmunity ());
 		}
 
+	}
+
+	IEnumerator ShadowImmunity(){
+		GetComponent<Collider2D> ().enabled = false;
+		yield return new WaitForSeconds (5f);
+		GetComponent<Collider2D> ().enabled = true;
 	}
 }

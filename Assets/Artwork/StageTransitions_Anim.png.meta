@@ -1,0 +1,1162 @@
+fileFormatVersion: 2
+guid: 32ead2e8b9ad349cdaff32c96e3645ca
+timeCreated: 1491994017
+licenseType: Free
+TextureImporter:
+  fileIDToRecycleName:
+    21300000: StageTransitions_Anim_0
+    21300002: StageTransitions_Anim_1
+    21300004: StageTransitions_Anim_2
+    21300006: StageTransitions_Anim_3
+    21300008: StageTransitions_Anim_4
+    21300010: StageTransitions_Anim_5
+    21300012: StageTransitions_Anim_6
+    21300014: StageTransitions_Anim_7
+    21300016: StageTransitions_Anim_8
+    21300018: StageTransitions_Anim_9
+    21300020: StageTransitions_Anim_10
+    21300022: StageTransitions_Anim_11
+    21300024: StageTransitions_Anim_12
+    21300026: StageTransitions_Anim_13
+    21300028: StageTransitions_Anim_14
+    21300030: StageTransitions_Anim_15
+    21300032: StageTransitions_Anim_16
+    21300034: StageTransitions_Anim_17
+    21300036: StageTransitions_Anim_18
+    21300038: StageTransitions_Anim_19
+    21300040: StageTransitions_Anim_20
+    21300042: StageTransitions_Anim_21
+    21300044: StageTransitions_Anim_22
+    21300046: StageTransitions_Anim_23
+    21300048: StageTransitions_Anim_24
+    21300050: StageTransitions_Anim_25
+    21300052: StageTransitions_Anim_26
+    21300054: StageTransitions_Anim_27
+    21300056: StageTransitions_Anim_28
+    21300058: StageTransitions_Anim_29
+    21300060: StageTransitions_Anim_30
+    21300062: StageTransitions_Anim_31
+    21300064: StageTransitions_Anim_32
+    21300066: StageTransitions_Anim_33
+    21300068: StageTransitions_Anim_34
+    21300070: StageTransitions_Anim_35
+    21300072: StageTransitions_Anim_36
+    21300074: StageTransitions_Anim_37
+    21300076: StageTransitions_Anim_38
+    21300078: StageTransitions_Anim_39
+    21300080: StageTransitions_Anim_40
+    21300082: StageTransitions_Anim_41
+    21300084: StageTransitions_Anim_42
+    21300086: StageTransitions_Anim_43
+    21300088: StageTransitions_Anim_44
+    21300090: StageTransitions_Anim_45
+    21300092: StageTransitions_Anim_46
+    21300094: StageTransitions_Anim_47
+    21300096: StageTransitions_Anim_48
+    21300098: StageTransitions_Anim_49
+    21300100: StageTransitions_Anim_50
+    21300102: StageTransitions_Anim_51
+    21300104: StageTransitions_Anim_52
+    21300106: StageTransitions_Anim_53
+    21300108: StageTransitions_Anim_54
+    21300110: StageTransitions_Anim_55
+    21300112: StageTransitions_Anim_56
+    21300114: StageTransitions_Anim_57
+    21300116: StageTransitions_Anim_58
+    21300118: StageTransitions_Anim_59
+    21300120: StageTransitions_Anim_60
+    21300122: StageTransitions_Anim_61
+    21300124: StageTransitions_Anim_62
+    21300126: StageTransitions_Anim_63
+    21300128: StageTransitions_Anim_64
+    21300130: StageTransitions_Anim_65
+    21300132: StageTransitions_Anim_66
+    21300134: StageTransitions_Anim_67
+    21300136: StageTransitions_Anim_68
+    21300138: StageTransitions_Anim_69
+    21300140: StageTransitions_Anim_70
+    21300142: StageTransitions_Anim_71
+    21300144: StageTransitions_Anim_72
+    21300146: StageTransitions_Anim_73
+    21300148: StageTransitions_Anim_74
+    21300150: StageTransitions_Anim_75
+    21300152: StageTransitions_Anim_76
+  serializedVersion: 4
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+  isReadable: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    filterMode: 0
+    aniso: -1
+    mipBias: -1
+    wrapMode: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spritePixelsToUnits: 100
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  platformSettings:
+  - buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    textureFormat: -1
+    textureCompression: 2
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+  - buildTarget: Standalone
+    maxTextureSize: 2048
+    textureFormat: -1
+    textureCompression: 2
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+  - buildTarget: iPhone
+    maxTextureSize: 2048
+    textureFormat: -1
+    textureCompression: 2
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: StageTransitions_Anim_0
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 6536
+        width: 300
+        height: 86
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: StageTransitions_Anim_1
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 6450
+        width: 300
+        height: 86
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: StageTransitions_Anim_2
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 6364
+        width: 300
+        height: 86
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: StageTransitions_Anim_3
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 6278
+        width: 300
+        height: 86
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: StageTransitions_Anim_4
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 6192
+        width: 300
+        height: 86
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: StageTransitions_Anim_5
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 6106
+        width: 300
+        height: 86
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: StageTransitions_Anim_6
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 6020
+        width: 300
+        height: 86
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: StageTransitions_Anim_7
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 5934
+        width: 300
+        height: 86
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: StageTransitions_Anim_8
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 5848
+        width: 300
+        height: 86
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: StageTransitions_Anim_9
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 5762
+        width: 300
+        height: 86
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: StageTransitions_Anim_10
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 5676
+        width: 300
+        height: 86
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: StageTransitions_Anim_11
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 5590
+        width: 300
+        height: 86
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: StageTransitions_Anim_12
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 5504
+        width: 300
+        height: 86
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: StageTransitions_Anim_13
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 5418
+        width: 300
+        height: 86
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: StageTransitions_Anim_14
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 5332
+        width: 300
+        height: 86
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: StageTransitions_Anim_15
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 5246
+        width: 300
+        height: 86
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: StageTransitions_Anim_16
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 5160
+        width: 300
+        height: 86
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: StageTransitions_Anim_17
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 5074
+        width: 300
+        height: 86
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: StageTransitions_Anim_18
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 4988
+        width: 300
+        height: 86
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: StageTransitions_Anim_19
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 4902
+        width: 300
+        height: 86
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: StageTransitions_Anim_20
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 4816
+        width: 300
+        height: 86
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: StageTransitions_Anim_21
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 4730
+        width: 300
+        height: 86
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: StageTransitions_Anim_22
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 4644
+        width: 300
+        height: 86
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: StageTransitions_Anim_23
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 4558
+        width: 300
+        height: 86
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: StageTransitions_Anim_24
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 4472
+        width: 300
+        height: 86
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: StageTransitions_Anim_25
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 4386
+        width: 300
+        height: 86
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: StageTransitions_Anim_26
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 4300
+        width: 300
+        height: 86
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: StageTransitions_Anim_27
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 4214
+        width: 300
+        height: 86
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: StageTransitions_Anim_28
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 4128
+        width: 300
+        height: 86
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: StageTransitions_Anim_29
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 4042
+        width: 300
+        height: 86
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: StageTransitions_Anim_30
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 3956
+        width: 300
+        height: 86
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: StageTransitions_Anim_31
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 3870
+        width: 300
+        height: 86
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: StageTransitions_Anim_32
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 3784
+        width: 300
+        height: 86
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: StageTransitions_Anim_33
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 3698
+        width: 300
+        height: 86
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: StageTransitions_Anim_34
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 3612
+        width: 300
+        height: 86
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: StageTransitions_Anim_35
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 3526
+        width: 300
+        height: 86
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: StageTransitions_Anim_36
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 3440
+        width: 300
+        height: 86
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: StageTransitions_Anim_37
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 3354
+        width: 300
+        height: 86
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: StageTransitions_Anim_38
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 3268
+        width: 300
+        height: 86
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: StageTransitions_Anim_39
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 3182
+        width: 300
+        height: 86
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: StageTransitions_Anim_40
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 3096
+        width: 300
+        height: 86
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: StageTransitions_Anim_41
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 3010
+        width: 300
+        height: 86
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: StageTransitions_Anim_42
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 2924
+        width: 300
+        height: 86
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: StageTransitions_Anim_43
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 2838
+        width: 300
+        height: 86
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: StageTransitions_Anim_44
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 2752
+        width: 300
+        height: 86
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: StageTransitions_Anim_45
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 2666
+        width: 300
+        height: 86
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: StageTransitions_Anim_46
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 2580
+        width: 300
+        height: 86
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: StageTransitions_Anim_47
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 2494
+        width: 300
+        height: 86
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: StageTransitions_Anim_48
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 2408
+        width: 300
+        height: 86
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: StageTransitions_Anim_49
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 2322
+        width: 300
+        height: 86
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: StageTransitions_Anim_50
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 2236
+        width: 300
+        height: 86
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: StageTransitions_Anim_51
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 2150
+        width: 300
+        height: 86
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: StageTransitions_Anim_52
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 2064
+        width: 300
+        height: 86
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: StageTransitions_Anim_53
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 1978
+        width: 300
+        height: 86
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: StageTransitions_Anim_54
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 1892
+        width: 300
+        height: 86
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: StageTransitions_Anim_55
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 1806
+        width: 300
+        height: 86
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: StageTransitions_Anim_56
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 1720
+        width: 300
+        height: 86
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: StageTransitions_Anim_57
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 1634
+        width: 300
+        height: 86
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: StageTransitions_Anim_58
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 1548
+        width: 300
+        height: 86
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: StageTransitions_Anim_59
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 1462
+        width: 300
+        height: 86
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: StageTransitions_Anim_60
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 1376
+        width: 300
+        height: 86
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: StageTransitions_Anim_61
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 1290
+        width: 300
+        height: 86
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: StageTransitions_Anim_62
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 1204
+        width: 300
+        height: 86
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: StageTransitions_Anim_63
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 1118
+        width: 300
+        height: 86
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: StageTransitions_Anim_64
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 1032
+        width: 300
+        height: 86
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: StageTransitions_Anim_65
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 946
+        width: 300
+        height: 86
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: StageTransitions_Anim_66
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 860
+        width: 300
+        height: 86
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: StageTransitions_Anim_67
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 774
+        width: 300
+        height: 86
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: StageTransitions_Anim_68
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 688
+        width: 300
+        height: 86
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: StageTransitions_Anim_69
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 602
+        width: 300
+        height: 86
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: StageTransitions_Anim_70
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 516
+        width: 300
+        height: 86
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: StageTransitions_Anim_71
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 430
+        width: 300
+        height: 86
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: StageTransitions_Anim_72
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 344
+        width: 300
+        height: 86
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: StageTransitions_Anim_73
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 258
+        width: 300
+        height: 86
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: StageTransitions_Anim_74
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 172
+        width: 300
+        height: 86
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: StageTransitions_Anim_75
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 86
+        width: 300
+        height: 86
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: StageTransitions_Anim_76
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 0
+        width: 300
+        height: 86
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    outline: []
+  spritePackingTag: 
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
