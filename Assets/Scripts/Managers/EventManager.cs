@@ -28,6 +28,7 @@ public class EventManager : MonoBehaviour {
 	private float stageTime;
 	private float stageEntryDuration;
 	private bool didStartCountDown;
+	private bool didStartEntry;
 	private bool stageEntry = false;
 	private GameMaster gameMaster;
 	private AsteroidManager asteroidManager;
@@ -40,19 +41,24 @@ public class EventManager : MonoBehaviour {
 		audioManager = GameObject.FindGameObjectWithTag ("AudioManager").GetComponent<AudioManager> ();
 		gameMaster = GameObject.FindGameObjectWithTag ("GameMaster").GetComponent<GameMaster> ();
 		gameMode = gameMaster.GetGameMode ();
-		stage = gameMode.stage;
+
+		Debug.Log ("Selected game mode is: " + gameMode);
+
+		if (gameMode == GameMode.Standard) {
+			stage = Stage.First;
+		} else {
+			stage = Stage.Indefinite;
+		}
 		StartManagers ();
 	}
 
 	// Use this for initialization
 	void Start () {
-		if (stage == Stage.First) {
-			stageEntry = true;
-		}
+		stageEntry = true;
+		didStartEntry = false;
 		stageTime = 30f;
 		stageEntryDuration = 3f;
 		didStartCountDown = false;
-		enemyManager.UpdateSpawnDelay (gameMode.enemySpawnDelay);
 	}
 	
 	// Update is called once per frame
@@ -60,22 +66,21 @@ public class EventManager : MonoBehaviour {
 
 		var gameState = gameMaster.GetGameState ();
 
-		if (!didStartCountDown && !gameMaster.playerDead
-		    && (gameState == GameState.Gameplay) && (stage != Stage.Indefinite)) {
-			if (stageEntry) {
+		if (!didStartCountDown && !gameMaster.playerDead && (gameState == GameState.Gameplay)) {
+			if (stageEntry && !didStartEntry) {
+				didStartEntry = true;
 				StartCoroutine (StageEntryDuration ());
 			}
-
-			if (!stageEntry){
-				didStartCountDown = true;
-				Debug.Log (stage);
-				StartCoroutine (CountDownStage ());
-			}
+				
 		}
 
-		if (gameState == GameState.GameOver) {
-			stage = gameMode.stage;
-		}
+//		if (gameState == GameState.GameOver) {
+//			if (gameMode == GameMode.Standard) {
+//				stage = Stage.First;
+//			} else {
+//				stage = Stage.Indefinite;
+//			}
+//		}
 	}
 
 	void StartManagers(){
@@ -91,43 +96,45 @@ public class EventManager : MonoBehaviour {
 	}
 
 	IEnumerator StageEntryDuration(){
+		Debug.Log (stage);
 		yield return new WaitForSeconds (stageEntryDuration);
+		didStartEntry = false;
+		if (stage != Stage.Indefinite) {
+			didStartCountDown = true;
+			StartCoroutine (CountDownStage ());
+		}
 		stageEntry = false;
 	}
 
 	IEnumerator CountDownStage(){
 		yield return new WaitForSeconds (stageTime);
+		didStartCountDown = false;
 		// Change to next stage
 		if (!gameMaster.playerDead) {
 			UpdateStage ();
 		}
 	}
 
+	void StartStage(){
+		audioManager.PlayAudio ("Stage");
+
+		// Update asteroid manager and enemy manager (and items)
+		asteroidManager.UpdateAsteroid (stage);
+		enemyManager.UpdateEnemy (stage);
+		itemManager.UpdateItems (stage);
+
+		stageEntry = true;
+	}
+
 	void UpdateStage(){
 		if (stage == Stage.First) {
 			stage = Stage.Second;
-			audioManager.PlayAudio ("Stage");
-			stageEntry = true;
-			// Update asteroid manager and enemy manager (and items)
-			asteroidManager.UpdateAsteroid (stage);
-			audioManager.PlayAudio ("Stage");
-			enemyManager.UpdateSpawnDelay (4f);
 		} else if (stage == Stage.Second) {
-			// Update asteroid manager and enemy manager (and items)
 			stage = Stage.Third;
-			audioManager.PlayAudio ("Stage");
-			stageEntry = true;
-			asteroidManager.UpdateAsteroid (stage);
-			enemyManager.UpdateSpawnDelay (3f);
 		} else if (stage == Stage.Third) {
-			// Update asteroid manager and enemy manager (and items)
 			stage = Stage.Indefinite;
-			audioManager.PlayAudio ("Stage");
-			stageEntry = true;
-			asteroidManager.UpdateAsteroid (stage);
-			enemyManager.UpdateSpawnDelay (2f);
 		}
-		didStartCountDown = false;
+		StartStage ();
 	}
 
 	public Stage GetStage(){

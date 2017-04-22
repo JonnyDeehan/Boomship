@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class AsteroidMove : MonoBehaviour {
 
-	public float speed = -10f;
+	private float speed = -6f;
 	private GameMaster gameMaster;
 
 	private Rigidbody2D body2d;

@@ -11,11 +11,14 @@ public class GameMaster : MonoBehaviour {
 	public GameObject explosionPrefab;
 	public GameObject gemPrefab;
 	public GameObject eventManagerPrefab;
+	public GameObject shootUpgradePrefab;
+	public GameObject hpPrefab;
 
 	//	Managers
 	private GameObject eventManagerObj;
 	private EventManager eventManager;
 	private AudioManager audioManager;
+	private PlayerManager playerManager;
 
 	// UI
 	public Sprite[] livesImages;
@@ -24,12 +27,14 @@ public class GameMaster : MonoBehaviour {
 	public Sprite[] gameModeImages;
 	public Sprite[] blastMeterImages;
 	public Sprite[] stageImages;
+	public Sprite[] shadowImages;
 	private Image Healthbar;
 	private Image LivesImage;
 	private Image pausePlayImage;
 	private Image blastMeterImage;
 	private Image stageTransitionImage;
 	private Image titleImage;
+	private Image shadowImage;
 	private Transform HealthBarObj;
 	private Transform LivesObj;
 	private Transform PlayButton;
@@ -42,12 +47,17 @@ public class GameMaster : MonoBehaviour {
 	private Transform StageObj;
 	private Transform TitleObj;
 	private Transform ScoreTitleObj;
+	private Transform ShadowObj;
+	private Transform HighScoreObj;
+	private Transform HighScoreTitleObj;
 	private Text scoreTextUI;
+	private Text highScoreTextUI;
 	private Dropdown gameModeSelection;
 
 	// Game attributes
 	private int gemCount;
 	private int score;
+	private int highScore;
 	private int lives;
 	private Vector2 spawnPoint;
 	private GameState gameState;
@@ -58,13 +68,13 @@ public class GameMaster : MonoBehaviour {
 	private bool commencingRespawn;
 	private bool gameOver;
 	public bool playerDead;
-	private bool mainMenu;
+	public bool mainMenu;
 
 	// Player related
 	private GameObject player;
 	private PlayerHealth playerHealth;
 	private PlayerShoot playerShoot;
-
+	private PlayerShadow playerShadow;
 
 	void Awake(){
 
@@ -89,6 +99,11 @@ public class GameMaster : MonoBehaviour {
 		TitleObj = GameObject.Find ("Main Camera").transform.FindChild ("Canvas").FindChild ("BoomshipTitle");
 		titleImage = TitleObj.GetComponent<Image> ();
 		ScoreTitleObj = GameObject.Find ("Main Camera").transform.FindChild ("Canvas").FindChild ("ScoreTitle");
+		ShadowObj = GameObject.Find ("Main Camera").transform.FindChild ("Canvas").FindChild ("ShadowShift");
+		shadowImage = ShadowObj.GetComponent<Image> ();
+		HighScoreObj = GameObject.Find ("Main Camera").transform.FindChild ("Canvas").FindChild ("HighScore");
+		highScoreTextUI = HighScoreObj.GetComponent<Text> ();
+		HighScoreTitleObj = GameObject.Find ("Main Camera").transform.FindChild ("Canvas").FindChild ("HighScoreTitle");
 
 		if (gameMaster == null) {
 			gameMaster = GameObject.FindGameObjectWithTag ("GameMaster")
@@ -99,10 +114,15 @@ public class GameMaster : MonoBehaviour {
 		}
 
 		audioManager = GameObject.FindGameObjectWithTag ("AudioManager").GetComponent<AudioManager> ();
+		playerManager = GameObject.FindGameObjectWithTag ("PlayerManager").GetComponent<PlayerManager> ();
 	}
 
 	// Use this for initialization
 	void Start () {
+		highScore = PlayerPrefs.GetInt("highScore",0);
+		UpdateHighScoreText ();
+
+		audioManager.PlayAudio ("TitleMusic");
 		mainMenu = true;
 		gemCount = 0;
 		score = 0;
@@ -118,6 +138,7 @@ public class GameMaster : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
 
+		// Selected gamemode UI
 		if (GameModeObj != null) {
 			var selectedMode = gameModeSelection.captionText.text;
 			// Default selection is standard
@@ -128,6 +149,7 @@ public class GameMaster : MonoBehaviour {
 			}
 		}
 
+		// Lives sprite UI
 		if (lives == 3) {
 			LivesImage.sprite = livesImages [0];
 		} else if (lives == 2) {
@@ -138,23 +160,34 @@ public class GameMaster : MonoBehaviour {
 			LivesImage.sprite = livesImages [3];
 		}
 
+		// Shadow form icon UI
+		if (player != null) {
+			if (!playerShadow.canShadow) {
+				shadowImage.sprite = shadowImages [0];
+			} else if (playerShadow.canShadow) {
+				shadowImage.sprite = shadowImages [1];
+			}
+		}
+
+		// Stage entry icon UI
 		if (eventManager != null && !mainMenu) {
 			if (eventManager.StageEntry) {
 				StageObj.gameObject.SetActive (true);
-				if (CurrentStage () == Stage.First) {
+				if (eventManager.GetStage() == Stage.First) {
 					stageTransitionImage.sprite = stageImages [0];
-				} else if (CurrentStage () == Stage.Second) {
+				} else if (eventManager.GetStage() == Stage.Second) {
 					stageTransitionImage.sprite = stageImages [1];
-				} else if (CurrentStage () == Stage.Third) {
+				} else if (eventManager.GetStage() == Stage.Third) {
 					stageTransitionImage.sprite = stageImages [2];
-				} else if (CurrentStage () == Stage.Indefinite) {
-					// IMPLEMENT INFINITE STAGE ICON
+				} else if (eventManager.GetStage() == Stage.Indefinite) {
+					stageTransitionImage.sprite = stageImages [3];
 				}
 			} else {
 				StageObj.gameObject.SetActive (false);
 			}
 		}
 
+		// Player ammo UI
 		if (BlastMeterObj != null && player != null) {
 			if (playerShoot.Ammo == 9f) {
 				blastMeterImage.sprite = blastMeterImages [0];
@@ -179,6 +212,7 @@ public class GameMaster : MonoBehaviour {
 			}
 		}
 
+		// Player Health UI
 		if (player != null) {
 			var health = player.GetComponent<PlayerHealth> ().GetHealth ();
 			if (health == 100) {
@@ -196,14 +230,19 @@ public class GameMaster : MonoBehaviour {
 			}
 		}
 
+		// Respawn Player update
 		if (player == null && playerDead && !commencingRespawn && !gameOver) {
 			commencingRespawn = true;
 			StartCoroutine(RespawnPlayer ());
 		}
 
+		// Kill Player update
 		if (player != null) {
 			if (playerHealth.GetHealth() <= 0f) {
 				KillPlayer ();
+			}
+			if (mainMenu) {
+				Destroy(player);
 			}
 		}
 	}
@@ -211,34 +250,48 @@ public class GameMaster : MonoBehaviour {
 	// ======= Window Related Methods =======
 
 	public void GameOverScreen(){
+		StoreHighscore ();
 		gameState = GameState.GameOver;
 		eventManager.DestroyManagers ();
+
 		if (GameObject.FindGameObjectWithTag ("Enemy") != null) {
 			Destroy (GameObject.FindGameObjectWithTag ("Enemy"));
 		}
+
 		if (GameObject.FindGameObjectWithTag ("Asteroid") != null) {
 			Destroy (GameObject.FindGameObjectWithTag ("Asteroid"));
 		}
+
 		GameOver.gameObject.SetActive (true);
 		PlayButton.gameObject.SetActive (true);
 		pausePlayObj.gameObject.SetActive (false);
 		GameModeObj.gameObject.SetActive (true);
 		BlastMeterObj.gameObject.SetActive (false);
+		ShadowObj.gameObject.SetActive (false);
+		HighScoreObj.gameObject.SetActive (true);
+		HighScoreTitleObj.gameObject.SetActive (true);
 	}
 
 	public void StartGame(){
+		// Play entry audio
+		audioManager.StopAudio ("TitleMusic");
 		audioManager.PlayAudio ("Select");
+		audioManager.PlayAudio ("GameMusic");
+
 		mainMenu = false;
+
+		// Check Gamemode selection
 		var selectedMode = gameModeSelection.captionText.text;
-		gameMode = new GameMode();
+		Debug.Log ("The selected mode is: " + selectedMode);
 		// Default selection is standard
 		if (selectedMode == "Standard") {
 			// set game mode to standard
-			gameMode.init (Stage.First, 4f, 4f, 8f);
+			gameMode = GameMode.Standard;
+
 		} else if (selectedMode == "Infinite") {
 			// set mode to infinite 
 			GameModeObj.GetComponent<Image>().sprite = gameModeImages[1];
-			gameMode.init(Stage.Indefinite, 2f, 2f, 6f);
+			gameMode = GameMode.Infinite;
 		}
 		
 		// Activate/deactive necessary UI components
@@ -251,6 +304,9 @@ public class GameMaster : MonoBehaviour {
 		GameModeObj.gameObject.SetActive (false);
 		pausePlayObj.gameObject.SetActive (true);
 		BlastMeterObj.gameObject.SetActive (true);
+		ShadowObj.gameObject.SetActive (true);
+		HighScoreObj.gameObject.SetActive (false);
+		HighScoreTitleObj.gameObject.SetActive (false);
 
 		// Instantiate EventManager
 		eventManagerObj = Instantiate(eventManagerPrefab);
@@ -266,11 +322,15 @@ public class GameMaster : MonoBehaviour {
 		audioManager.PlayAudio ("Select");
 		if (!pauseGame) {
 			MainMenuObj.gameObject.SetActive (true);
+			HighScoreObj.gameObject.SetActive (true);
+			HighScoreTitleObj.gameObject.SetActive (true);
 			pauseGame = true;
 			pausePlayImage.sprite = pausePlayImages [1];
 			Time.timeScale = 0;
 		} else if (pauseGame) {
 			MainMenuObj.gameObject.SetActive (false);
+			HighScoreObj.gameObject.SetActive (false);
+			HighScoreTitleObj.gameObject.SetActive (false);
 			pauseGame = false;
 			pausePlayImage.sprite = pausePlayImages [0];
 			Time.timeScale = 1;
@@ -278,14 +338,30 @@ public class GameMaster : MonoBehaviour {
 	}
 
 	public void MainMenu(){
+		// Main menu audio
+		audioManager.PlayAudio ("TitleMusic");
+		audioManager.StopAudio ("GameMusic");
+
 		mainMenu = true;
+
+		// Activate/deactive necessary UI components
 		TitleObj.gameObject.SetActive(true);
 		StageObj.gameObject.SetActive (false);
 		LivesObj.gameObject.SetActive (false);
 		HealthBarObj.gameObject.SetActive (false);
 		ScoreTitleObj.gameObject.SetActive (false);
 		ScoreObj.gameObject.SetActive (false);
+		ShadowObj.gameObject.SetActive (false);
+		MainMenuObj.gameObject.SetActive (false);
+		PlayButton.gameObject.SetActive (true);
+		pausePlayObj.gameObject.SetActive (false);
+		GameModeObj.gameObject.SetActive (true);
+		BlastMeterObj.gameObject.SetActive (false);
+		StageObj.gameObject.SetActive (false);
+
 		gameState = GameState.GameOver;
+
+		// Destroy any remaining Gameobjects
 		eventManager.DestroyManagers ();
 		if (GameObject.FindGameObjectWithTag ("Enemy") != null) {
 			Destroy (GameObject.FindGameObjectWithTag ("Enemy"));
@@ -293,16 +369,15 @@ public class GameMaster : MonoBehaviour {
 		if (GameObject.FindGameObjectWithTag ("Asteroid") != null) {
 			Destroy (GameObject.FindGameObjectWithTag ("Asteroid"));
 		}
+		if (GameObject.FindGameObjectWithTag ("Projectile") != null) {
+			Destroy(GameObject.FindGameObjectWithTag ("Projectile"));
+		}
 		Destroy(player);
+
 		Time.timeScale = 1;
 		pauseGame = false;
 		pausePlayImage.sprite = pausePlayImages [0];
-		MainMenuObj.gameObject.SetActive (false);
-		PlayButton.gameObject.SetActive (true);
-		pausePlayObj.gameObject.SetActive (false);
-		ScoreObj.gameObject.SetActive (false);
-		GameModeObj.gameObject.SetActive (true);
-		BlastMeterObj.gameObject.SetActive (false);
+
 	}
 
 	// ======= Player Related Methods ======
@@ -312,6 +387,7 @@ public class GameMaster : MonoBehaviour {
 		if (player != null) {
 			playerHealth = player.GetComponent<PlayerHealth> ();
 			playerShoot = player.GetComponent<PlayerShoot> ();
+			playerShadow = player.GetComponent<PlayerShadow> ();
 		}
 	}
 
@@ -334,7 +410,6 @@ public class GameMaster : MonoBehaviour {
 
 		var playerNew = Instantiate (playerPrefab,spawnPoint,Quaternion.identity);
 		commencingRespawn = false;
-		eventManager.SetStage (Stage.First);
 		playerDead = false;
 		// Player immune for duration after spawning
 		playerNew.GetComponent<PlayerHealth> ().Immunity ();
@@ -342,16 +417,19 @@ public class GameMaster : MonoBehaviour {
 	}
 
 	private void SpawnPlayer(){
+		// Deactivate menu UI components
 		GameOver.gameObject.SetActive (false);
 		PlayButton.gameObject.SetActive (false);
+
+		// Initial spawn conditions
 		gemCount = 0;
 		score = 0;
 		lives = 3;
 		gameOver = false;
+
 		UpdateScoreText ();
 		var playerNew = Instantiate (playerPrefab,spawnPoint,Quaternion.identity);
 		eventManager = eventManagerObj.GetComponent<EventManager> ();
-		eventManager.SetStage (Stage.First);
 		playerDead = false;
 		FindPlayer ();
 	}
@@ -365,6 +443,7 @@ public class GameMaster : MonoBehaviour {
 
 	public void IncrementScore(int value){
 		this.score += value;
+		playerShadow.IncrementShadowMeter (value);
 		UpdateScoreText ();
 	}
 
@@ -380,15 +459,22 @@ public class GameMaster : MonoBehaviour {
 		var gem = Instantiate (gemPrefab, target.transform.position, Quaternion.identity);
 	}
 
+	public void SpawnShootUpgrade(GameObject target){
+		var shootUpgrade = Instantiate (shootUpgradePrefab, target.transform.position, Quaternion.identity);
+	}
+
+	public void SpawnHP(GameObject target){
+		var hp = Instantiate (hpPrefab, target.transform.position, Quaternion.identity);
+	}
+
 	void UpdateScoreText(){
 		var scoreString = string.Format("{0:000000}", score);
 		scoreTextUI.text = scoreString;
 	}
-		
-		
-	public Stage CurrentStage(){
-		var stage = eventManager.GetStage ();
-		return stage;
+
+	void UpdateHighScoreText(){
+		var highScoreString = string.Format("{0:000000}", highScore);
+		highScoreTextUI.text = highScoreString;
 	}
 
 	public void ExplodeAnimation(GameObject target){
@@ -404,6 +490,17 @@ public class GameMaster : MonoBehaviour {
 		return this.gameMode;
 	}
 
+	void StoreHighscore()
+	{
+		int oldHighScore = PlayerPrefs.GetInt("highScore", 0);    
+		if (score > oldHighScore) {
+			highScore = score;
+			PlayerPrefs.SetInt ("highScore", score);  
+			UpdateHighScoreText ();
+		}
+
+	}
+
 }
 
 public enum GameState {
@@ -412,24 +509,29 @@ public enum GameState {
 	GameOver
 }
 
-public class GameMode {
-	// Initialize with Event manager settings, enemy manager settings,
-	// asteroid manager settings and item manager settings
-
-	// ======= Stage, enemy spawn delay, asteroid spawn delay =======
-	// ======= Standard -> Stage: First, SpawnDelay: 4f (initially) =======
-	// ======= Infiinite -> Stage: Inifinite, SpawnDelay: 2f (for all of game) =======
-
-	public Stage stage;
-	public float enemySpawnDelay;
-	public float asteroidSpawnDelay;
-	public float itemSpawnDelay;
-
-	// Init() method to set these conditions
-	public void init(Stage stage, float enemySD, float asteroidSD, float itemSD){
-		this.stage = stage;
-		this.enemySpawnDelay = enemySD;
-		this.asteroidSpawnDelay = asteroidSD;
-		this.itemSpawnDelay = itemSD;
-	}
+public enum GameMode {
+	Standard,
+	Infinite
 }
+
+//public class GameMode {
+//	// Initialize with Event manager settings, enemy manager settings,
+//	// asteroid manager settings and item manager settings
+//
+//	// ======= Stage, enemy spawn delay, asteroid spawn delay =======
+//	// ======= Standard -> Stage: First, SpawnDelay: 4f (initially) =======
+//	// ======= Infiinite -> Stage: Inifinite, SpawnDelay: 2f (for all of game) =======
+//
+//	public Stage stage;
+//	public float enemySpawnDelay;
+//	public float asteroidSpawnDelay;
+//	public float itemSpawnDelay;
+//
+//	// Init() method to set these conditions
+//	public void init(Stage stage, float enemySD, float asteroidSD, float itemSD){
+//		this.stage = stage;
+//		this.enemySpawnDelay = enemySD;
+//		this.asteroidSpawnDelay = asteroidSD;
+//		this.itemSpawnDelay = itemSD;
+//	}
+//}

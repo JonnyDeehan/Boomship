@@ -5,12 +5,15 @@ using UnityEngine;
 public class PlayerShoot: PlayerAction {
 
 	public GameObject projectilePrefab;
+	public GameObject [] projectileUpgradedPrefabs;
 	public Vector2 firePosition;
 	private float shootDelay = 0.1f;
 	private float lastShootTime = 0;
-	private float reloadTime = 1f;
+	private float reloadTime = 0.5f;
+	private float shootUpgradeDuration = 8f;
 	private bool didReload;
 	private float ammo;
+	private bool shootUpgrade;
 	private AudioManager audioManager;
 	public float Ammo {
 		get{
@@ -19,6 +22,7 @@ public class PlayerShoot: PlayerAction {
 	}
 
 	void Start(){
+		shootUpgrade = false;
 		ammo = 9f;
 		didReload = false;
 		audioManager = GameObject.FindGameObjectWithTag ("AudioManager").GetComponent<AudioManager> ();
@@ -54,9 +58,28 @@ public class PlayerShoot: PlayerAction {
 		pos.x += transform.position.x;
 		pos.y += transform.position.y;
 
-		var projectileClone = Instantiate (projectilePrefab,pos,Quaternion.identity);
-		Physics2D.IgnoreCollision(projectileClone.GetComponent<Collider2D>(), GetComponent<Collider2D>());
-		projectileClone.transform.localScale = transform.localScale;
+		if (!shootUpgrade) {
+			var projectileClone = Instantiate (projectilePrefab, pos, Quaternion.identity);
+			Physics2D.IgnoreCollision (projectileClone.GetComponent<Collider2D> (), GetComponent<Collider2D> ());
+			projectileClone.transform.localScale = transform.localScale;
+		} else {
+			foreach( GameObject prefab in projectileUpgradedPrefabs){
+				var projectileClone = Instantiate (prefab, pos, Quaternion.identity);
+				Physics2D.IgnoreCollision (projectileClone.GetComponent<Collider2D> (), GetComponent<Collider2D> ());
+				projectileClone.transform.localScale = transform.localScale;
+			}
+		}
+	}
 
+	IEnumerator ShootUpgrade(){
+		shootUpgrade = true;
+		yield return new WaitForSeconds (shootUpgradeDuration);
+		shootUpgrade = false;
+	}
+
+	public void InitiateShootUpgrade(){
+		if (!shootUpgrade) {
+			StartCoroutine (ShootUpgrade ());
+		}
 	}
 }

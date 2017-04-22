@@ -15,3 +15,7 @@
 /Users/jonathandeehan/Documents/Unity/Boomship/Temp/bin/Debug/Unity.CecilTools.dll
 /Users/jonathandeehan/Documents/Unity/Boomship/Temp/bin/Debug/Mono.Cecil.Pdb.dll
 /Users/jonathandeehan/Documents/Unity/Boomship/Temp/bin/Debug/Mono.Cecil.Mdb.dll
+/Users/jonathandeehan/Documents/Unity/Boomship/Temp/bin/Debug/UnityEngine.PlaymodeTestsRunner.dll
+/Users/jonathandeehan/Documents/Unity/Boomship/Temp/bin/Debug/UnityEngine.Analytics.dll
+/Users/jonathandeehan/Documents/Unity/Boomship/Temp/bin/Debug/UnityEngine.HoloLens.dll
+/Users/jonathandeehan/Documents/Unity/Boomship/Temp/bin/Debug/UnityEngine.VR.dll

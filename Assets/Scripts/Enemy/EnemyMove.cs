@@ -8,6 +8,8 @@ public class EnemyMove : MonoBehaviour {
 
 	private int enemyKillScore = 20;
 	private Rigidbody2D body2d;
+	private PlayerHealth playerHealth;
+	private GameObject player;
 
 	void Awake () {
 		body2d = GetComponent<Rigidbody2D>();
@@ -15,6 +17,11 @@ public class EnemyMove : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
+
+		if (player == null) {
+			FindPlayer ();
+		}
+
 		var vel = body2d.velocity;
 		body2d.velocity = new Vector2(speed, vel.y);
 
@@ -23,7 +30,17 @@ public class EnemyMove : MonoBehaviour {
 
 		var enemyPosition = transform.position;
 		if (enemyPosition.x < min.x) {
+			if (player != null) {
+				playerHealth.TakeDamage (10f);
+			}
 			Destroy (gameObject);
+		}
+	}
+
+	void FindPlayer(){
+		if (GameObject.FindGameObjectWithTag ("Player") != null) {
+			player = GameObject.FindGameObjectWithTag ("Player");
+			playerHealth = player.GetComponent<PlayerHealth> ();
 		}
 	}
 }

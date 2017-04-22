@@ -2,18 +2,14 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+public enum PlayerState {
+	Normal,
+	Shadow
+}
+
 public class PlayerManager : MonoBehaviour {
 
-//	public Animation anim;
-	public AudioSource[] audio;
-
 	private PlayerHealth playerHealth;
-
-	public enum PlayerState {
-		Normal,
-		Shadow
-	}
-
 	private GameObject player;
 	private PlayerState playerState;
 	private GameState gameState;
@@ -30,23 +26,11 @@ public class PlayerManager : MonoBehaviour {
 		if ((player = null) && (gameMaster.GetGameState() == GameState.Gameplay)) {
 			FindPlayer ();
 		}
-
-		if (player != null) {
-
-			if (playerState == PlayerState.Normal) {
-				playerAnimator.SetBool ("Shadow", false);
-			}
-
-			if (playerState == PlayerState.Shadow) {
-				playerAnimator.SetBool ("Shadow", true);
-			}
-
-		}
 	}
 
 	// Shadow state for 5 seconds, revert back to normal state
 	IEnumerator ShadowDuration(){
-		audio [0].Play ();
+		playerState = PlayerState.Shadow;
 		Debug.Log ("ShadowForm");
 		yield return new WaitForSeconds (5f);
 		Debug.Log ("NormalForm");
@@ -66,7 +50,7 @@ public class PlayerManager : MonoBehaviour {
 		player = GameObject.FindGameObjectWithTag ("Player");
 		if (player != null) {
 			playerHealth = player.GetComponent<PlayerHealth> ();
-			playerAnimator = player.GetComponent<Animator> ();
 		}
 	}
+
 }

@@ -15,6 +15,15 @@ public class AudioManager : MonoBehaviour {
 			}
 		}
 	}
+
+	public void StopAudio(string audioName){
+		foreach (SoundEffect effect in soundEffects) {
+			if (effect.name.Equals (audioName)) {
+				currentSource = effect.audio.GetComponent<AudioSource>();
+				currentSource.Stop ();
+			}
+		}
+	}
 }
 
 [System.Serializable]

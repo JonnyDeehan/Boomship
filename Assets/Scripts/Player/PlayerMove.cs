@@ -7,6 +7,13 @@ public class PlayerMove : PlayerAction {
     public float speed = 1f;
     private float flyDelay = 0.1f;
     private float lastFlyTime = 0;
+	private GameMaster gameMaster;
+
+	void Awake(){
+		base.Awake ();
+		gameMaster = GameObject.FindGameObjectWithTag ("GameMaster").GetComponent<GameMaster> ();
+	}
+
 
     void Update() {
 		// Min and Max position of the player on the y-axis
@@ -26,6 +33,11 @@ public class PlayerMove : PlayerAction {
         if (canflyUp && (holdTime < flyDelay) && (Time.time - lastFlyTime > flyDelay)) {
             FlyUp();
         }
+
+		if(body2d.velocity.x != 0){
+			gameMaster.KillPlayer ();
+		}
+
     }
 
     private void FlyUp() {

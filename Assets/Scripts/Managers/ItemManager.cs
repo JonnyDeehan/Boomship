@@ -23,7 +23,7 @@ public class ItemManager : MonoBehaviour {
 		if (canSpawn && !eventManager.StageEntry) {
 			canSpawn = false;
 			var spawnPosition = new Vector2(10f,Random.Range (min: -4f, max: 4f));
-			StartCoroutine (SpawnItem (spawnPosition, items[Random.Range (min: 0, max: 2)]));
+			StartCoroutine (SpawnItem (spawnPosition, items[Random.Range (min: 0, max: 3)]));
 		}
 	}
 
@@ -43,7 +43,6 @@ public class ItemManager : MonoBehaviour {
 		yield return new WaitForSeconds (5f);
 		// Spawn item
 		var itemClone = Instantiate (item,position,Quaternion.identity);
-//		itemClone.transform.localScale = transform.localScale;
 
 		yield return new WaitForSeconds (spawnDelay);
 		canSpawn = true;

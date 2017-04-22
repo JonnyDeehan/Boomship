@@ -8,6 +8,8 @@ public abstract class Projectile : MonoBehaviour {
 	protected Rigidbody2D body2d;
 	private static float MINX = -10f;
 	private static float MAXX = 20f;
+	private int projectileLayer = 11;
+	private int itemLayer = 10;
 	protected GameMaster gameMaster;
 	protected string targetTag;
 	private int killEnemyScore = 20;
@@ -15,6 +17,8 @@ public abstract class Projectile : MonoBehaviour {
 	private float projectileDamage = 20f;
 
 	protected virtual void Awake(){
+		Physics2D.IgnoreLayerCollision (projectileLayer, itemLayer);
+		Physics2D.IgnoreLayerCollision (projectileLayer, projectileLayer);
 		body2d = GetComponent<Rigidbody2D> ();
 		gameMaster = GameObject.FindGameObjectWithTag ("GameMaster").GetComponent<GameMaster> ();
 	}

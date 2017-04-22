@@ -17,7 +17,9 @@ public class HP : Collectable {
 	}
 
 	override protected void OnCollect(GameObject target){
-		playerHP.RestoreHealth (hpAmount);
+		if (GameObject.FindGameObjectWithTag ("Player") != null) {
+			playerHP.RestoreHealth (hpAmount);
+		}
 
 		Destroy(gameObject);
 	}

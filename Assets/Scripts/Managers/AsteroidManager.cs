@@ -24,9 +24,9 @@ public class AsteroidManager : MonoBehaviour {
 	}
 
 	void Start(){
-		if (gameMaster.CurrentStage() == Stage.First) {
+		if (eventManager.GetStage() == Stage.First) {
 			currentAsteroid = asteroids [0];
-		} else if (gameMaster.CurrentStage() == Stage.Indefinite) {
+		} else if (eventManager.GetStage() == Stage.Indefinite) {
 			currentAsteroid = asteroids [2];
 		}
 	}
@@ -57,7 +57,6 @@ public class AsteroidManager : MonoBehaviour {
 		yield return new WaitForSeconds (2f);
 		// Spawn Enemy
 		var asteroidClone = Instantiate (currentAsteroid.asteroid,position,Quaternion.identity);
-//		asteroidClone.transform.localScale = transform.localScale;
 
 		yield return new WaitForSeconds (currentAsteroid.spawnDelay);
 		canSpawn = true;

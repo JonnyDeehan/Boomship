@@ -8,6 +8,8 @@ public class PlayerHealth : MonoBehaviour {
 	private bool immunity = false;
 	private PlayerFlash flash;
 	public float maxHealth = 100;
+	private int playerCollisionLayer = 8;
+	public int[] collisionLayers;
 
 	void Awake(){
 		health = maxHealth;
@@ -38,11 +40,15 @@ public class PlayerHealth : MonoBehaviour {
 
 	IEnumerator ImmuneForDuration(){
 		immunity = true;
-		GetComponent<Collider2D> ().enabled = false;
+		foreach (int layer in collisionLayers) {
+			Physics2D.IgnoreLayerCollision (playerCollisionLayer, layer, true);
+		}
 		StartCoroutine (GetComponent<PlayerFlash> ().Flash ());
 		yield return new WaitForSeconds (1.5f);
 		immunity = false;
-		GetComponent<Collider2D> ().enabled = true;
+		foreach (int layer in collisionLayers) {
+			Physics2D.IgnoreLayerCollision (playerCollisionLayer, layer, false);
+		}
 	}
 
 	public void RestoreHealth(float restoreAmount){
