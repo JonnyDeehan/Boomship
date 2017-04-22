@@ -1,16 +1,9 @@
 ﻿<Properties StartupItem="Assembly-CSharp.csproj">
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" PreferredExecutionTarget="Unity.Instance.Unity Editor" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="Assets/Scripts/Asteroid/AsteroidMove.cs">
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets/Scripts/Managers/GameMaster.cs">
     <Files>
-      <File FileName="Assets/Scripts/Asteroid/AsteroidCollision.cs" Line="21" Column="77" />
-      <File FileName="Assets/Scripts/Managers/AsteroidManager.cs" Line="59" Column="91" />
-      <File FileName="Assets/Scripts/Managers/EnemyManager.cs" Line="15" Column="9" />
-      <File FileName="Assets/Scripts/Enemy/EnemyCollision.cs" Line="12" Column="24" />
-      <File FileName="Assets/Scripts/Managers/EventManager.cs" Line="69" Column="30" />
-      <File FileName="Assets/Scripts/Managers/GameMaster.cs" Line="247" Column="4" />
-      <File FileName="Assets/Scripts/Projectiles/Projectile.cs" Line="13" Column="34" />
-      <File FileName="Assets/Scripts/Asteroid/AsteroidMove.cs" Line="7" Column="26" />
-      <File FileName="Assets/Scripts/Enemy/EnemyMove.cs" Line="34" Column="31" />
+      <File FileName="Assets/Scripts/Managers/GameMaster.cs" Line="497" Column="22" />
+      <File FileName="Assets/Scripts/Managers/EventManager.cs" Line="51" Column="4" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>

@@ -50,6 +50,7 @@ public class GameMaster : MonoBehaviour {
 	private Transform ShadowObj;
 	private Transform HighScoreObj;
 	private Transform HighScoreTitleObj;
+	private Transform XControlObj;
 	private Text scoreTextUI;
 	private Text highScoreTextUI;
 	private Dropdown gameModeSelection;
@@ -104,6 +105,7 @@ public class GameMaster : MonoBehaviour {
 		HighScoreObj = GameObject.Find ("Main Camera").transform.FindChild ("Canvas").FindChild ("HighScore");
 		highScoreTextUI = HighScoreObj.GetComponent<Text> ();
 		HighScoreTitleObj = GameObject.Find ("Main Camera").transform.FindChild ("Canvas").FindChild ("HighScoreTitle");
+		XControlObj = GameObject.Find ("Main Camera").transform.FindChild ("Canvas").FindChild ("XControl");
 
 		if (gameMaster == null) {
 			gameMaster = GameObject.FindGameObjectWithTag ("GameMaster")
@@ -270,6 +272,7 @@ public class GameMaster : MonoBehaviour {
 		ShadowObj.gameObject.SetActive (false);
 		HighScoreObj.gameObject.SetActive (true);
 		HighScoreTitleObj.gameObject.SetActive (true);
+		XControlObj.gameObject.SetActive (false);
 	}
 
 	public void StartGame(){
@@ -307,6 +310,7 @@ public class GameMaster : MonoBehaviour {
 		ShadowObj.gameObject.SetActive (true);
 		HighScoreObj.gameObject.SetActive (false);
 		HighScoreTitleObj.gameObject.SetActive (false);
+		XControlObj.gameObject.SetActive (true);
 
 		// Instantiate EventManager
 		eventManagerObj = Instantiate(eventManagerPrefab);
@@ -358,6 +362,7 @@ public class GameMaster : MonoBehaviour {
 		GameModeObj.gameObject.SetActive (true);
 		BlastMeterObj.gameObject.SetActive (false);
 		StageObj.gameObject.SetActive (false);
+		XControlObj.gameObject.SetActive (false);
 
 		gameState = GameState.GameOver;
 
